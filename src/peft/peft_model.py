@@ -1120,7 +1120,7 @@ class PeftModelForSeq2SeqLM(PeftModel):
                     )
                     kwargs["token_type_ids"] = None
 
-                if peft_config.peft_type == PeftType.PREFIX_TUNING:
+                if peft_config.peft_type == PeftType.PREFIX_TUNING or peft_config.peft_type == PeftType.P_TUNING:
                     outputs = self.base_model.generate(**kwargs)
                 else:
                     raise NotImplementedError
