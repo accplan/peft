@@ -1086,6 +1086,7 @@ class PeftModelForSeq2SeqLM(PeftModel):
                     kwargs["labels"] = torch.cat((prefix_labels, labels), dim=1)
             prompts = self.get_prompt(batch_size=batch_size)
             prompts = prompts.to(inputs_embeds.dtype)
+            prompts = prompts.to('cuda')
             inputs_embeds = torch.cat((prompts[:, : peft_config.num_virtual_tokens], inputs_embeds), dim=1)
             if peft_config.num_transformer_submodules == 1:
                 return self.base_model(inputs_embeds=inputs_embeds, **kwargs)
